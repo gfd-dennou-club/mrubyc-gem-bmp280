@@ -4,7 +4,7 @@ class BMP280
     @address = 0x76
     @i2c = i2c
     chipid = 0x58
-    ret = @i2c.read_integer(@address, 1, 0xd0)
+    ret = @i2c.readfrom(@address, 1, 0xd0)
     if(chipid != ret[0])
       p "BMP280 initialization failed."
       return
@@ -19,12 +19,12 @@ class BMP280
   end
 
   def read16(data = nil)
-    ret = @i2c.read_integer(@address, 2, data)
+    ret = @i2c.readfrom(@address, 2, data)
     ret[0] << 8 | ret[1]
   end
 
   def read24(data = nil)
-    ret = @i2c.read_integer(@address, 3, data)
+    ret = @i2c.readfrom(@address, 3, data)
     ret[0] << 16 | ret[1] << 8 | ret[2]
   end
 
